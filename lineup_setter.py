@@ -27,21 +27,30 @@ class LineupSetterBot():
         # click log in button
         self.driver.find_element_by_xpath('//*[@id="sideLogin-left-rail"]/button[2]').click()
 
-        sleep(3)
-        # input username and password
-
-        # inputs = self.driver.find_elements_by_tag_name("iframe").find_elements_by_
-        # print([str(input.id) + '\n' for input in inputs])
-        # print([str(input.get_attribute("id")) + '\n' for input in inputs])
-        # inputs = self.driver.find_elements_by_class_name("main")
-        # print([str(input.tag_name) + '\n' for input in inputs])
-
+        # ****input username and password****
+        # switch to disney iframe (quirk of espn website)
         disney_iframe = self.driver.find_element_by_id('disneyid-iframe')
-        disney_html = disney_iframe.find_element_by_tag_name('html')
-        print(disney_html.get_attribute("dir"))
-        # self.driver.find_element_by_xpath('/html/body/div[1]/div/div/section/section/form/section/div[1]/div/label/span[2]/input').send_keys(username)
-        # self.driver.find_elements_by_tag_name('/html/body/div[1]/div/div/section/section/form/section/div[2]/div/label/span[2]/input').send_keys(password)
+        self.driver.switch_to.frame(disney_iframe)
+
+        # enter usename and password
+        self.driver.find_element_by_xpath('/html/body/div[1]/div/div/section/section/form/section/div[1]/div/label/span[2]/input').send_keys(username)
+        self.driver.find_element_by_xpath('/html/body/div[1]/div/div/section/section/form/section/div[2]/div/label/span[2]/input').send_keys(password)
         
+        # click login button
+        self.driver.find_element_by_xpath('//*[@id="did-ui-view"]/div/section/section/form/section/div[3]/button').click()
+        
+        # switch back to default frame
+        self.driver.switch_to.default_content()
+
+        body = self.driver.find_element_by_tag_name("body")
+        print(body.get_attribute('innerHTML'))
+
+        # click on team you want to go to
+        # self.driver.find_element_by_xpath('//*[@id="fantasy-feed-items"]/div[3]/a[1]').click()
+        # elems = self.driver.find_elements_by_tag_name("a")
+        # links = [elem.get_attribute('href') for elem in elems]
+        # print(links)
+
         
         # login_button = 
         # sleep(2)
